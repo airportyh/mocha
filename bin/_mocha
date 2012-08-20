@@ -321,7 +321,10 @@ if (program.watch) {
 // load
 
 mocha.files = files;
-mocha.run(process.exit);
+var exit = process.platform === 'win32' ? 
+  function(){ setTimeout(process.exit, 100) } :
+  process.exit;
+mocha.run(exit);
 
 // enable growl notifications
 
